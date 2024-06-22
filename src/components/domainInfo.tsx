@@ -13,19 +13,24 @@ export default function DomainInfo({domainInfos}: DomainInfoProps) {
                     let data = localStorage.getItem('car');
                     if (data) {
                         let car = JSON.parse(data);
-                        if (car.includes(domainInfos.domain)) return toast.error('Dit domein is al toegevoegd in de winkelwagen', {
-                            position: "bottom-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        })
-                        car.push(domainInfos.domain);
+                        if (car.some((item: { domain: string }) => item.domain === domainInfos.domain)) {
+                            return toast.error('Dit domein is al toegevoegd in de winkelwagen', {
+                                position: "bottom-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                        }
+                        car.push({"domain": domainInfos.domain, "price": domainInfos.price.product.price});
                         localStorage.setItem('car', JSON.stringify(car));
                     } else {
-                        localStorage.setItem('car', JSON.stringify([domainInfos.domain]));
+                        localStorage.setItem('car', JSON.stringify([{
+                            "domain": domainInfos.domain,
+                            "price": domainInfos.price.product.price
+                        }]));
                     }
                 }
             }
