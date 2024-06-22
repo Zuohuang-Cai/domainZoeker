@@ -12,8 +12,6 @@ export const searchDomains = async (name: string) => {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(parseDomain(name));
-            console.log(data);
             return data
         })
         .catch(error => {
