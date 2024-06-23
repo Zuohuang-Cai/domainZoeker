@@ -30,7 +30,6 @@ export class Bestelling {
                     [bestellingresult.insertId, domain.id]
                 );
             }
-            await conn.end();
         } catch (error) {
             console.error("error insert:", error);
             return null;

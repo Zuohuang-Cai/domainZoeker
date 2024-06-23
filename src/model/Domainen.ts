@@ -17,13 +17,11 @@ export class Domainen {
     public async add() {
         try {
             let con = await connection
-            const [result] = await con.query("INSERT INTO domainen (domainen, price, expiry) VALUES (?, ?, ?)", [this.name, this.price, this.expiry]);
-            await con.end()
+            const [result] = await con.query("INSERT INTO domainen (naam, price, expiry) VALUES (?, ?, ?)", [this.name, this.price, this.expiry]);
             // @ts-ignore
             return new Domainen({id: result.insertId, name: this.name, price: this.price, expiry: this.expiry});
-
         } catch (error: any) {
-            return new Error(error)
+            throw new Error(error)
         }
     }
 }

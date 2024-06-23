@@ -5,13 +5,13 @@ USE minty_media;
 create table bestellingen (
   id int not null auto_increment primary key,
   created_at datetime not null,
-  total_price decimal not null
+  total_price decimal(10,2) not null
 );
 
 create table domainen (
   id int not null auto_increment primary key,
   naam varchar(40) not null unique,
-  price decimal not null,
+  price decimal(10,2) not null,
   expiry date
 );
 create table bestellingen_domainen (

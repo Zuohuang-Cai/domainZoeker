@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Input} from "@nextui-org/react";
 import {SearchIcon} from "./SearchIcon";
 import {searchDomains} from "@/utils/domain";
-import {ToastContainer, toast} from 'react-toastify';
+import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Search({setDomainInfo: setDomainInfo}: { setDomainInfo: any }) {

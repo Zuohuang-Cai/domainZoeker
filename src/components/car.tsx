@@ -1,7 +1,7 @@
 'use client'
 import React, {useEffect, useState} from "react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
-import Test from "@/services/test";
+import StoreOrder from "@/services/storeOrder";
 import {toast} from "react-toastify";
 
 export default function Car() {
@@ -32,24 +32,22 @@ export default function Car() {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">WINKEL MAAND</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-1 text-black dark:text-white">WINKEL
+                                MAAND</ModalHeader>
                             <ModalBody>
                                 {carItems && carItems.map((item: { domain: string, price: string }, index: number) => (
-                                    <div className={"flex justify-between"}>
-                                        <p>{item.domain}</p>
-                                        <div className={"flex"}>
-                                            <p>{item.price} €</p>
-                                            <Button color="danger" variant="light"
-                                                    onPress={() => RemoveDomain(item.domain)}>
-                                                Remove</Button>
-                                        </div>
+                                    <div className={"flex justify-between text-black dark:text-white"}>
+                                        <p className={"flex items-center"}>{item.domain}</p>
+                                        <p>{item.price} USD<Button color="danger" variant="light"
+                                                                   onPress={() => RemoveDomain(item.domain)}>
+                                            Remove</Button></p>
                                     </div>
                                 ))}
-                                <div className={"flex justify-between"}>
+                                <div className={"flex justify-between text-black dark:text-white"}>
                                     <h1 className={"text-end"}>Nog te Betalen</h1>
                                     <p>{carItems && carItems.reduce((total, item) => {
                                         return total + (parseFloat(item.price) * 1.21);
-                                    }, 0).toFixed(2)}€</p>
+                                    }, 0).toFixed(2)}USD</p>
                                 </div>
                             </ModalBody>
                             <ModalFooter>
@@ -66,7 +64,21 @@ export default function Car() {
                                         draggable: true,
                                         progress: undefined,
                                     });
-                                    await Test(carItems)
+                                    try {
+                                        await StoreOrder(carItems)
+                                        localStorage.removeItem('car');
+                                        setCarItems(null);
+                                    } catch (e: any) {
+                                        toast.error(`Er is iets fout gegaan heb je die domain al gekocht?`, {
+                                            position: "bottom-right",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                        });
+                                    }
                                 }}>
                                     Afrekenen
                                 </Button>

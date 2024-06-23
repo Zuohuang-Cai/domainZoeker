@@ -4,7 +4,7 @@ import BestellingType from "@/types/bestelling/bestellingType";
 import {Domainen} from "@/model/Domainen";
 import DomainenType from "@/types/domain/domainenType";
 
-export default async function Test(carItems: { domain: string, price: string }[]) {
+export default async function StoreOrder(carItems: { domain: string, price: string }[]) {
     const totalprice: number = parseFloat(carItems.reduce((total, item) => {
         return total + (parseFloat(item.price) * 1.21);
     }, 0).toFixed(2))
@@ -16,7 +16,7 @@ export default async function Test(carItems: { domain: string, price: string }[]
             price: parseFloat(item.price),
             expiry: oneYearLater,
         } as DomainenType;
-        let Domain: Domainen | Error = new Domainen(domainP);
+        let Domain: Domainen = new Domainen(domainP);
         Domain = await Domain.add();
         domainen.push(Domain);
     }
