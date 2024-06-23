@@ -14,9 +14,9 @@ export default function Search({setDomainInfo: setDomainInfo}: { setDomainInfo: 
     const handleSearch = async () => {
         try {
             const data = await searchDomains(inputValue);
-            setDomainInfo(data.results[0]);
+            setDomainInfo(data.results);
         } catch (e: any) {
-            toast.error(`Invalid extension`, {
+            toast.error(`Invalid domain`, {
                 position: "bottom-right",
                 autoClose: 5000,
                 hideProgressBar: false,

@@ -38,8 +38,8 @@ export default function Car() {
                                 {carItems && carItems.map((item: { domain: string, price: string }, index: number) => (
                                     <div className={"flex justify-between text-black dark:text-white"}>
                                         <p className={"flex items-center"}>{item.domain}</p>
-                                        <p>{item.price} USD<Button color="danger" variant="light"
-                                                                   onPress={() => RemoveDomain(item.domain)}>
+                                        <p>{item.price} EURO<Button color="danger" variant="light"
+                                                                    onPress={() => RemoveDomain(item.domain)}>
                                             Remove</Button></p>
                                     </div>
                                 ))}
@@ -47,7 +47,7 @@ export default function Car() {
                                     <h1 className={"text-end"}>Nog te Betalen</h1>
                                     <p>{carItems && carItems.reduce((total, item) => {
                                         return total + (parseFloat(item.price) * 1.21);
-                                    }, 0).toFixed(2)}USD</p>
+                                    }, 0).toFixed(2)}EURO</p>
                                 </div>
                             </ModalBody>
                             <ModalFooter>
