@@ -1,7 +1,7 @@
 export type domainenType = {
     id: number | undefined;
     name: string;
-    type: string;
+    price: number;
     expiry: Date;
 };
 export default domainenType;

@@ -1,5 +1,8 @@
+'use client'
 import React, {useEffect, useState} from "react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import Test from "@/services/test";
+import {toast} from "react-toastify";
 
 export default function Car() {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -53,9 +56,17 @@ export default function Car() {
                                 <Button color="danger" variant="light" onPress={onClose}>
                                     Close
                                 </Button>
-                                <Button color="primary" onPress={() => {
-                                    console.log(carItems);
-                                    return 1
+                                <Button color="primary" onPress={async () => {
+                                    if (!carItems) return toast.error(`de winkelmand is leeg`, {
+                                        position: "bottom-right",
+                                        autoClose: 5000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                    });
+                                    await Test(carItems)
                                 }}>
                                     Afrekenen
                                 </Button>
